@@ -8,6 +8,7 @@ interface Props {
 }
 
 const SnippetShowpage = async (props: Props) => {
+
 	const snippet = await db.snippet.findFirst({
 		where: {
 			id: parseInt(props.params.id),

@@ -20,7 +20,7 @@ const SnippetShowPage = async (props: Props) => {
 		return notFound();
 	}
 
-  const snippetDeleteAction = deleteSnippet.bind(null, snippet.id)
+	const snippetDeleteAction = deleteSnippet.bind(null, snippet.id);
 
 	return (
 		<div>
@@ -44,4 +44,15 @@ const SnippetShowPage = async (props: Props) => {
 		</div>
 	);
 };
+
+export const generateStaticParams = async () => {
+	const snippets = await db.snippet.findMany();
+
+	return snippets.map((snippet) => {
+		return {
+			id: snippet.id.toString(),
+		};
+	});
+};
+
 export default SnippetShowPage;

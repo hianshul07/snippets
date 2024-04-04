@@ -1,6 +1,7 @@
 'use server';
 
 import db from '@/db';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { useFormState } from 'react-dom';
 
@@ -30,8 +31,6 @@ const createSnippet = async (
 				code,
 			},
 		});
-
-		throw new Error('no hehe');
 	} catch (err: unknown) {
 		if (err instanceof Error) {
 			return {
@@ -44,6 +43,7 @@ const createSnippet = async (
 		}
 	}
 
+	revalidatePath('/')
 	redirect('/');
 };
 
@@ -61,6 +61,7 @@ const deleteSnippet = async (id: number) => {
 		where: { id },
 	});
 
+	revalidatePath('/')
 	redirect(`/`);
 };
 
